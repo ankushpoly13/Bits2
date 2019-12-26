@@ -24,7 +24,7 @@
 	  <groupId>org.testng</groupId>
 	  <artifactId>testng</artifactId>
 	  <version>6.8</version>
-	  <scope>test</scope>
+	  <scope>compile</scope>
    </dependency>
    <!-- https://mvnrepository.com/artifact/ru.yandex.qatools.ashot/ashot -->
 	<dependency>
@@ -77,7 +77,10 @@
 	    <groupId>com.relevantcodes</groupId>
 	    <artifactId>extentreports</artifactId>
 	    <version>2.41.2</version>
-	</dependency>
-        
+	</dependency>        
   </dependencies>
+  <properties>
+    <maven.compiler.source>1.6</maven.compiler.source>
+    <maven.compiler.target>1.6</maven.compiler.target>
+  </properties>
 </project>
