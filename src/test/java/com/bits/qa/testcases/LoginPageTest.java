@@ -1,6 +1,5 @@
 package com.bits.qa.testcases;
 
-import static org.testng.Assert.assertEquals;
 
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
