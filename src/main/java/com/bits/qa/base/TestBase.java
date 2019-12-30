@@ -35,9 +35,7 @@ public class TestBase {
 	}
 	public static void initialization() 
 	{
-		System.out.println("Inside");
 		String browsername = prop.getProperty("browser");
-		System.out.println(browsername);
 		if (browsername.equals("chrome"))
 		{
 			System.setProperty("webdriver.chrome.driver","D:\\Automation\\chromedriver.exe");
@@ -48,7 +46,6 @@ public class TestBase {
 		
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
-//		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
 		driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_lOAD_TIMEOUT, TimeUnit.SECONDS);
 		driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT, TimeUnit.SECONDS);
 		driver.get(prop.getProperty("url"));

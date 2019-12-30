@@ -1,6 +1,5 @@
 package com.bits.qa.testcases;
 
-import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -10,12 +9,13 @@ import com.bits.qa.pages.CommonDashboard;
 import com.bits.qa.pages.HomePage;
 import com.bits.qa.pages.LoginPage;
 
-public class HomePageTest extends TestBase{
-	LoginPage loginPage;
-	HomePage homePage;
+public class CommonDashboardTest extends TestBase{
+
 	CommonDashboard commonDashboard;
+	LoginPage login;
+	HomePage homePage;
 	
-	public HomePageTest()
+	public CommonDashboardTest()
 	{
 		super();
 	}
@@ -24,22 +24,16 @@ public class HomePageTest extends TestBase{
 	public void setUp()
 	{
 		initialization();
-		loginPage = new LoginPage();
-		homePage = loginPage.login(prop.getProperty("email"), prop.getProperty("password"));
-	
-	}
-	
-	//@Test(priority=1)
-	public void verifyLogo()
-	{
-		Assert.assertTrue(homePage.checkLogo());
-	}
-	
-	@Test(priority=2)
-	public void openCD()
-	{
+		login = new LoginPage();
+		homePage = login.login(prop.getProperty("email"), prop.getProperty("password"));
 		commonDashboard = homePage.OpenCD();
 		
+		
+	}
+	
+	@Test
+	public void verifyTitle()
+	{
 		
 	}
 	
@@ -48,5 +42,4 @@ public class HomePageTest extends TestBase{
 	{
 		driver.quit();
 	}
-	
 }
