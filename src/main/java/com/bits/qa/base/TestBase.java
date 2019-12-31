@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import com.bits.qa.util.TestUtil;
 
@@ -35,14 +36,22 @@ public class TestBase {
 	}
 	public static void initialization() 
 	{
-		String browsername = prop.getProperty("browser");
-		if (browsername.equals("chrome"))
+		String browser = prop.getProperty("browser");
+		if (browser.equals("chrome"))
 		{
 			System.setProperty("webdriver.chrome.driver","D:\\Automation\\chromedriver.exe");
 			 driver = new ChromeDriver();			
 		}
+		else if(browser.equals("firefox"))
+		{
+			System.setProperty("webdriver.gecko.driver", "D:\\Automation\\geckodriver.exe");
+			driver = new FirefoxDriver();
+		}
 		else
+		{
 			System.out.println("No Browser name found");
+			
+		}
 		
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();

@@ -1,6 +1,7 @@
 package com.bits.qa.testcases;
 
-import org.testng.Assert;
+import java.awt.AWTException;
+
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -29,14 +30,10 @@ public class HomePageTest extends TestBase{
 	
 	}
 	
-	//@Test(priority=1)
-	public void verifyLogo()
-	{
-		Assert.assertTrue(homePage.checkLogo());
-	}
 	
-	@Test(priority=2)
-	public void openCD()
+	
+	@Test(priority=1)
+	public void openCD() throws AWTException, InterruptedException
 	{
 		commonDashboard = homePage.OpenCD();
 		

@@ -26,7 +26,7 @@ public class CommonDashboardTest extends TestBase{
 		initialization();
 		login = new LoginPage();
 		homePage = login.login(prop.getProperty("email"), prop.getProperty("password"));
-		commonDashboard = homePage.OpenCD();
+		//commonDashboard = homePage.OpenCD();
 		
 		
 	}
