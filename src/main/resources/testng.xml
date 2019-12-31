@@ -7,9 +7,9 @@
 	</listeners>
 
 
-	<test name="Bits App Test Cases">
+	<test name="CommissionHistorySingledownloadTest">
 		<classes>
-			<class name="com.bits.qa.testcases.LoginPageTest"></class>
+			<class name="com.bits.qa.testcases.CommissionHistorySingledownloadTest"></class>
 		</classes>
 	</test>
 </suite>

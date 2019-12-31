@@ -2,24 +2,20 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2019-12-24T18:50:00 IST" name="Bits Application Test Automation Test Suite" finished-at="2019-12-24T18:51:03 IST" duration-ms="62566">
+  <suite started-at="2019-12-31T13:43:55 IST" name="Bits Application Test Automation Test Suite" finished-at="2019-12-31T13:45:40 IST" duration-ms="104386">
     <groups>
     </groups>
-    <test started-at="2019-12-24T18:50:00 IST" name="Bits App Test Cases" finished-at="2019-12-24T18:51:03 IST" duration-ms="62566">
-      <class name="com.bits.qa.testcases.LoginPageTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.bits.qa.testcases.LoginPageTest@13bc8645]" started-at="2019-12-24T18:50:01 IST" name="setUp" finished-at="2019-12-24T18:50:33 IST" duration-ms="32425" status="PASS">
+    <test started-at="2019-12-31T13:43:55 IST" name="Bits App Test Cases" finished-at="2019-12-31T13:45:40 IST" duration-ms="104386">
+      <class name="com.bits.qa.testcases.CommissionHistorySingledownloadTest">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.bits.qa.testcases.CommissionHistorySingledownloadTest@16c069df]" started-at="2019-12-31T13:43:56 IST" name="setUp" finished-at="2019-12-31T13:45:20 IST" duration-ms="84446" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="loginTest()[pri:0, instance:com.bits.qa.testcases.LoginPageTest@13bc8645]" started-at="2019-12-24T18:50:33 IST" name="loginTest" finished-at="2019-12-24T18:51:03 IST" duration-ms="29659" status="PASS">
+        <test-method signature="GrandTotal_CommissionComparision()[pri:0, instance:com.bits.qa.testcases.CommissionHistorySingledownloadTest@16c069df]" started-at="2019-12-31T13:45:21 IST" name="GrandTotal_CommissionComparision" finished-at="2019-12-31T13:45:40 IST" duration-ms="19109" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- loginTest -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.bits.qa.testcases.LoginPageTest@13bc8645]" started-at="2019-12-24T18:51:03 IST" name="tearDown" finished-at="2019-12-24T18:51:03 IST" duration-ms="2" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- tearDown -->
-      </class> <!-- com.bits.qa.testcases.LoginPageTest -->
+        </test-method> <!-- GrandTotal_CommissionComparision -->
+      </class> <!-- com.bits.qa.testcases.CommissionHistorySingledownloadTest -->
     </test> <!-- Bits App Test Cases -->
   </suite> <!-- Bits Application Test Automation Test Suite -->
 </testng-results>
