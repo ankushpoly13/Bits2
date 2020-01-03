@@ -1,6 +1,10 @@
 package com.bits.qa.pages;
 
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
@@ -10,20 +14,24 @@ import com.bits.qa.base.TestBase;
 public class CommissionHistorySingledownload extends TestBase{
 	
 	//User ID
-	@FindBy(xpath="//div[contains(text(),'Select UserId')]")
+	@FindBy(id="UserId")
 	WebElement UserID;
 	
-	//'aakanksha.shaha'
-	@FindBy(xpath="//span[contains(text(),'aakanksha.shaha')]")
-	WebElement User;
-	
 	//Year
-	@FindBy(xpath="//div[contains(text(),'Select Year')]")
+	@FindBy(id="ddlYear")
 	WebElement Year;
-
+	
 	//Period
-	@FindBy(xpath="//button[@class='btn dropdown-toggle disabled btn-light']//div[@class='filter-option-inner-inner'][contains(text(),'Select Period')]")
+	@FindBy(id="ddlPeriod")
 	WebElement Period;
+	
+	// Search Textbox
+	@FindBy(xpath="//*[@id=\"SingleDownloadSwitch\"]/div[1]/div/div[2]/div[1]/div[3]/div/div/div[1]/input")
+	WebElement Search;
+	
+	//period '11/04/2019-12/01/2019'
+	@FindBy(xpath="//div[@class='col-md-3 form-field']//div[@class='filter-option-inner-inner'][contains(text(),'Select Period')]")
+	WebElement Period19;
 	
 	//Submit
 	@FindBy(xpath="//button[@class='btn btn-add col-md-3']")
@@ -57,13 +65,17 @@ public class CommissionHistorySingledownload extends TestBase{
 	public Double totalCommission1() throws InterruptedException
 	{
 		
-		//Select user = new Select (UserID); 
-		//user.selectByIndex(1);
+		Select user = new Select (UserID); 
+		user.selectByValue("aakanksha.shaha");
 		Thread.sleep(5000);
-		UserID.click();
-		User.click();
+		Select Y = new Select (Year);
+		Y.selectByValue("2019");
 		Thread.sleep(5000);
+		Select per =new Select(Period);
+		per.selectByValue("27");
+		Thread.sleep(2000);
 		Live.click();
+		Thread.sleep(2000);
 		Submit.click();
 		Thread.sleep(5000);
 		Showmore.click();
@@ -72,7 +84,6 @@ public class CommissionHistorySingledownload extends TestBase{
 		System.out.println("String "+ Commission1);
 		double NumCommission1 = Double.parseDouble(Commission1);
 		System.out.println("After changing from string to double "+ NumCommission1);
-				
 		return NumCommission1;				
 	}
 	

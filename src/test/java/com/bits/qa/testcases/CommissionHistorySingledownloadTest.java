@@ -59,7 +59,7 @@ public class CommissionHistorySingledownloadTest extends TestBase
 	Assert.assertEquals(value1, value2,"GrandTotal_CommissionComparision Match Failed");
 	}
 	
-	//@AfterMethod
+	@AfterMethod
 	public void tearDown()
 	{
 		driver.quit();

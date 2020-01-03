@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Bits Application Test Automation Test Suite]" verbose="0">
+  <listeners>
+    <listener class-name="com.qa.ExtentReportListener.ExtentReporterNG"/>
+  </listeners>
+  <test name="CommissionHistorySingledownloadTest(failed)">
+    <classes>
+      <class name="com.bits.qa.testcases.CommissionHistorySingledownloadTest">
+        <methods>
+          <include name="GrandTotal_CommissionComparision"/>
+          <include name="setUp"/>
+        </methods>
+      </class> <!-- com.bits.qa.testcases.CommissionHistorySingledownloadTest -->
+    </classes>
+  </test> <!-- CommissionHistorySingledownloadTest(failed) -->
+</suite> <!-- Failed suite [Bits Application Test Automation Test Suite] -->

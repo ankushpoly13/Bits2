@@ -3,7 +3,6 @@ com\bits\qa\pages\SuperAdminDashboard.class
 com\bits\qa\util\TestUtil.class
 com\bits\qa\pages\HomePage.class
 com\bits\qa\testdata\Test.class
-com\bits\qa\testdata\DataBaseConnection.class
 com\qa\ExtentReportListener\ExtentReporterNG.class
 com\bits\qa\base\TestBase.class
 com\bits\qa\pages\LoginPage.class

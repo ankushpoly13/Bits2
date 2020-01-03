@@ -6,6 +6,7 @@
       <class name="com.bits.qa.testcases.CommissionHistorySingledownloadTest">
         <methods>
           <include name="GrandTotal_CommissionComparision"/>
+          <include name="tearDown"/>
           <include name="setUp"/>
         </methods>
       </class> <!-- com.bits.qa.testcases.CommissionHistorySingledownloadTest -->
