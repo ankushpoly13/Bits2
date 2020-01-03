@@ -1,5 +1,6 @@
 package com.bits.qa.pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
@@ -10,6 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
 import com.bits.qa.base.TestBase;
+import com.bits.qa.util.ScreenShot;
 
 public class CommissionHistorySingledownload extends TestBase{
 	
@@ -84,7 +86,8 @@ public class CommissionHistorySingledownload extends TestBase{
 		System.out.println("String "+ Commission1);
 		double NumCommission1 = Double.parseDouble(Commission1);
 		System.out.println("After changing from string to double "+ NumCommission1);
-		return NumCommission1;				
+		return NumCommission1;
+
 	}
 	
 	public Double totalCommission2()
@@ -95,6 +98,11 @@ public class CommissionHistorySingledownload extends TestBase{
 		System.out.println("string "+ Commission2);
 		double NumCommission2 = Double.parseDouble(Commission2);
 		System.out.println("After changing from string to double "+ NumCommission2);
+		
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].scrollIntoView();",Comm2);
+		String SSName = "totalCommission2 - aakanksha.shaha";
+		ScreenShot.TakeFullPageScreenShot(driver,SSName);
 		return NumCommission2;				
 	}
 	
