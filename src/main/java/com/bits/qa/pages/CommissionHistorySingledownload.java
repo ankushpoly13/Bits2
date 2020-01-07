@@ -1,5 +1,8 @@
 package com.bits.qa.pages;
 
+import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -13,7 +16,8 @@ import org.openqa.selenium.support.ui.Select;
 import com.bits.qa.base.TestBase;
 import com.bits.qa.util.ScreenShot;
 
-public class CommissionHistorySingledownload extends TestBase{
+public class CommissionHistorySingledownload extends TestBase
+{
 	
 	//User ID
 	@FindBy(id="UserId")
@@ -61,15 +65,15 @@ public class CommissionHistorySingledownload extends TestBase{
 	
 	public CommissionHistorySingledownload()
 	{
-		PageFactory.initElements(driver, this);
+				PageFactory.initElements(driver, this);
 	}
 	
-	public Double totalCommission1() throws InterruptedException
+	public void Common() throws InterruptedException
 	{
-		
-		Select user = new Select (UserID); 
-		user.selectByValue("aakanksha.shaha");
-		Thread.sleep(5000);
+				Select user = new Select (UserID); 
+				user.selectByValue("aayush.joshi");
+	  
+	    Thread.sleep(5000);
 		Select Y = new Select (Year);
 		Y.selectByValue("2019");
 		Thread.sleep(5000);
@@ -79,39 +83,223 @@ public class CommissionHistorySingledownload extends TestBase{
 		Live.click();
 		Thread.sleep(2000);
 		Submit.click();
-		Thread.sleep(5000);
+		Thread.sleep(15000);
 		Showmore.click();
-		String Commission1 = Comm1.getText();
-		Commission1= Commission1.replaceAll("[, ;]", "");
-		System.out.println("String "+ Commission1);
-		double NumCommission1 = Double.parseDouble(Commission1);
-		System.out.println("After changing from string to double "+ NumCommission1);
-		return NumCommission1;
+        
+		/*
+		 * Thread.sleep(5000); Select Y = new Select (Year); Y.selectByValue("2019");
+		 * Thread.sleep(5000); Select per =new Select(Period); per.selectByValue("27");
+		 * Thread.sleep(2000); Live.click(); Thread.sleep(2000); Submit.click();
+		 * Thread.sleep(15000); Showmore.click();
+		 */
 
 	}
 	
-	public Double totalCommission2()
+	public String verifycommissiontables() throws InterruptedException
 	{
-				
-		String Commission2 = Comm2.getText();
-		Commission2=Commission2.replaceAll("[, ;]", "");
-		System.out.println("string "+ Commission2);
-		double NumCommission2 = Double.parseDouble(Commission2);
-		System.out.println("After changing from string to double "+ NumCommission2);
+	boolean a =driver.findElements( By.xpath("//*[@id='ConsulatantTable_1_wrapper']") ).size() != 0;
+	if (a==true)
+		{
+			return "1";
+		}
+	
+	else 
+		{
+			return "0";
+		}
+	}
+
+	
+	public double rowcount0() throws InterruptedException 
+	{
+
+		List <WebElement> rows = driver.findElements(By.xpath("//*[@id='ConsulatantTable_0']/tfoot[1]/tr"));
+		int row = rows.size();
+		//System.out.println("Row size before subtracting:  "+row);
 		
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].scrollIntoView();",Comm2);
-		String SSName = "totalCommission2 - aakanksha.shaha";
-		ScreenShot.TakeFullPageScreenShot(driver,SSName);
-		return NumCommission2;				
+		if (row ==8)
+		{	
+				row= row-5;
+				//System.out.println("Row size after subtracting:  "+row);
+				String string1 ="//*[@id='ConsulatantTable_0']/tfoot[1]/tr[";
+				String string2 ="]/td[41]"; 
+				String rowcounts = string1 + row + string2;
+				//System.out.println("string1 + row + string2: "+rowcounts);
+				WebElement com =driver.findElement(By.xpath(rowcounts));
+				String text = com.getText();
+				text=text.replaceAll("[, ;]", "");
+				double Commission2 = Double.parseDouble(text);
+				return Commission2;
+		}
+		else if (row ==4)
+		{	
+				row= row-3;
+				//System.out.println("Row size after if "+row);
+				String string1 ="//*[@id='ConsulatantTable_0']/tfoot[1]/tr[";
+				String string2 ="]/td[41]"; 
+				String rowcounts = string1 + row + string2;
+				//System.out.println("String "+rowcounts);
+				WebElement com =driver.findElement(By.xpath(rowcounts));
+				String text = com.getText();
+				text=text.replaceAll("[, ;]", "");
+				double Commission2 = Double.parseDouble(text);
+				return Commission2;
+		}
+		else if (row ==2)
+		{	
+				row= row-1;
+				//System.out.println("Row size after if "+row);
+				String string1 ="//*[@id='ConsulatantTable_0']/tfoot[1]/tr[";
+				String string2 ="]/td[41]"; 
+				String rowcounts = string1 + row + string2;
+				//System.out.println("String "+rowcounts);
+				WebElement com =driver.findElement(By.xpath(rowcounts));
+				String text = com.getText();
+				text=text.replaceAll("[, ;]", "");
+				double Commission2 = Double.parseDouble(text);
+				return Commission2;
+		}	
+		else 
+		{
+				row= row-1;
+				//System.out.println("Row size after if "+row);
+				String string1 ="//*[@id='ConsulatantTable_0']/tfoot[1]/tr[";
+				String string2 ="]/td[41]"; 
+				String rowcounts = string1 + row + string2;
+				//System.out.println("String "+rowcounts);
+				WebElement com =driver.findElement(By.xpath(rowcounts));
+				String text = com.getText();
+				text=text.replaceAll("[, ;]", "");
+				double Commission2 = Double.parseDouble(text);
+				return Commission2;
+		}
+	
 	}
 	
-	public String BankAmount20Per()
+	public double rowcount1() throws InterruptedException 
 	{
-		String	BankAmount20 = BankAmount.getText();
-		System.out.println(BankAmount20);
-		return BankAmount20;
+
+		List <WebElement> rows = driver.findElements(By.xpath("//*[@id='ConsulatantTable_1']/tfoot[1]/tr"));
+		int row = rows.size();
+		//System.out.println("Row size before if "+row);
+		
+		if (row ==8)
+		{	
+				row= row-5;
+				//System.out.println("Row size after if row= row-5"+row);
+				String string1 ="//*[@id='ConsulatantTable_1']/tfoot[1]/tr[";
+				String string2 ="]/td[41]"; 
+				String rowcounts = string1 + row + string2;
+				//System.out.println("string1 + row + string2: "+rowcounts);
+				WebElement com =driver.findElement(By.xpath(rowcounts));
+				String text = com.getText();
+				text=text.replaceAll("[, ;]", "");
+				double Commission3 = Double.parseDouble(text);
+				return Commission3; 
+		}
+		else if (row ==4)
+		{	
+				row= row-3;
+				//System.out.println("Row size after if row= row-3 "+row);
+				String string1 ="//*[@id='ConsulatantTable_1']/tfoot[1]/tr[";
+				String string2 ="]/td[41]"; 
+				String rowcounts = string1 + row + string2;
+				//System.out.println("String "+rowcounts);
+				WebElement com =driver.findElement(By.xpath(rowcounts));
+				String text = com.getText();
+				text=text.replaceAll("[, ;]", "");
+				double Commission3 = Double.parseDouble(text);
+				return Commission3;
+		}
+		else if (row ==2)
+		{	
+				row= row-1;
+				//System.out.println("Row size after if row= row-1 "+row);
+				String string1 ="//*[@id='ConsulatantTable_1']/tfoot[1]/tr[";
+				String string2 ="]/td[41]"; 
+				String rowcounts = string1 + row + string2;
+				//System.out.println("String "+rowcounts);
+				WebElement com =driver.findElement(By.xpath(rowcounts));
+				String text = com.getText();
+				text=text.replaceAll("[, ;]", "");
+				double Commission3 = Double.parseDouble(text);
+				return Commission3;
+		}	
+		else 
+		{
+				row= row-1;
+				//System.out.println("Row size after if row= row-1 "+row);
+				String string1 ="//*[@id='ConsulatantTable_1']/tfoot[1]/tr[";
+				String string2 ="]/td[41]"; 
+				String rowcounts = string1 + row + string2;
+				//System.out.println("String "+rowcounts);
+				WebElement com =driver.findElement(By.xpath(rowcounts));
+				String text = com.getText();
+				text=text.replaceAll("[, ;]", "");
+				double Commission3 = Double.parseDouble(text);
+				return Commission3;
+		}
+	
 	}
+	
+	public Double totalCommission1() throws InterruptedException
+	{
+				String Commission1 = Comm1.getText();
+				Commission1= Commission1.replaceAll("[, ;]", "");
+				//System.out.println("String "+ Commission1);
+				double NumCommission1 = Double.parseDouble(Commission1);
+				//System.out.println("After changing from string to double "+ NumCommission1);
+				return NumCommission1;
+	}
+	
+	
+	public void test() 
+	{
+		
+	    Select dropdown = new Select(driver.findElement(By.id("UserId")));
+		    //Get all options
+		    List<WebElement> user = dropdown.getOptions();
+
+		    //Get the length
+		    System.out.println(user.size());
+
+		    // Loop to print one by one
+		    for (int j = 0; j < user.size(); j++) 
+		    {
+		        String s= user.get(j).getText();
+		        dropdown.selectByValue(s);
+		        
+		    }
+		
+	}
+	
+	public void common2() throws InterruptedException 
+{
+			Select dropdown = new Select(driver.findElement(By.id("UserId")));
+			List<WebElement> user = dropdown.getOptions();
+			System.out.println(user.size());
+			for (int j = 1; j < user.size(); j++) 
+			{
+				String s= user.get(j).getText();
+				dropdown.selectByValue(s);
+				Thread.sleep(5000);
+				Select Y = new Select (Year);
+				Y.selectByValue("2019");
+				Thread.sleep(5000);
+				Select per =new Select(Period);
+				per.selectByValue("27");
+				Thread.sleep(2000);
+				Live.click();
+				Thread.sleep(2000);
+				Submit.click();
+				Thread.sleep(15000);
+				Showmore.click();
+				
+			}
+			
+
+}
+	
 	
 	
 }

@@ -33,33 +33,53 @@ public class CommissionHistorySingledownloadTest extends TestBase
 		CommissionHistory = homepage.navigate();
 	}
 	
-	@Test
+	//@Test
 	public void GrandTotal_CommissionComparision() throws InterruptedException 
 	{
 	Double	value1= null;
 	Double  value2= null;
-	//homepage = loginPage.login(prop.getProperty("email"),prop.getProperty("password") );
+	Double  value3 =0.00;
+	Double  sum=null;
+	CommissionHistory.Common();
 	value1 = CommissionHistory.totalCommission1();
-	System.out.println("value1 "+ value1);
-	value2 = CommissionHistory.totalCommission2();
-	System.out.println("value2 "+ value2);
-	Assert.assertEquals(value1, value2,"GrandTotal_CommissionComparision Match Failed");
-	}
-	
-	//@Test
-	public void BankCalculations() throws InterruptedException 
+	String g= CommissionHistory.verifycommissiontables();
+	if (g=="0")
 	{
-	Double	value1= null;
-	Double  value2= null;
-	//homepage = loginPage.login(prop.getProperty("email"),prop.getProperty("password") );
-	value1 = CommissionHistory.totalCommission1();
-	System.out.println("value1"+ value1);
-	value2 = CommissionHistory.totalCommission2();
-	System.out.println("value2"+ value1);
-	Assert.assertEquals(value1, value2,"GrandTotal_CommissionComparision Match Failed");
+		value2 = CommissionHistory.rowcount0();
+	}	
+	if (g=="1")
+	{
+		value2 = CommissionHistory.rowcount0();
+		value3 = CommissionHistory.rowcount1();
+	}
+	else 
+		System.out.println("g value not found");
+	
+	System.out.println("Value 2: "+value2 );
+	System.out.println("Value 3 "+value3 );
+	sum =value2+value3;
+	System.out.println("Value 1: "+ value1);
+	System.out.println("Sum of Value 2 and 3 is:  "+sum );
+	Assert.assertEquals(value1, sum,"GrandTotal_CommissionComparision Match Failed");
 	}
 	
-	@AfterMethod
+	@Test
+	public void test1() 
+	{
+	CommissionHistory.test();
+	}
+	
+	
+	@Test
+	public void allvalues() throws InterruptedException
+	{
+		Double	value1= null;
+		Double  value2= null;
+		Double  value3 =0.00;
+		Double  sum=null;
+		CommissionHistory.Common();
+	}
+	//@AfterMethod
 	public void tearDown()
 	{
 		driver.quit();
