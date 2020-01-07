@@ -1,5 +1,7 @@
 package com.bits.qa.testcases;
 
+import java.io.IOException;
+
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -11,9 +13,9 @@ import com.bits.qa.pages.LoginPage;
 
 public class CommonDashboardTest extends TestBase{
 
-	CommonDashboard commonDashboard;
+	CommonDashboard commondashboard;
 	LoginPage login;
-	HomePage homePage;
+	HomePage homepage;
 	
 	public CommonDashboardTest()
 	{
@@ -25,8 +27,8 @@ public class CommonDashboardTest extends TestBase{
 	{
 		initialization();
 		login = new LoginPage();
-		homePage = login.login(prop.getProperty("email"), prop.getProperty("password"));
-		//commonDashboard = homePage.OpenCD();
+		homepage = login.login(prop.getProperty("email"), prop.getProperty("password"));
+		commondashboard = homepage.OpenCD();
 		
 		
 	}

@@ -1,6 +1,7 @@
 package com.bits.qa.testcases;
 
 import java.awt.AWTException;
+import java.io.IOException;
 
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -33,9 +34,9 @@ public class HomePageTest extends TestBase{
 	
 	
 	@Test(priority=1)
-	public void openCD() throws AWTException, InterruptedException
+	public void test()
 	{
-		commonDashboard = homePage.OpenCD();
+		
 		
 		
 	}

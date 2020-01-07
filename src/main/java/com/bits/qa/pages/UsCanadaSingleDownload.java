@@ -7,16 +7,30 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.bits.qa.base.TestBase;
 import com.bits.qa.util.ScreenShot;
 
 public class UsCanadaSingleDownload extends TestBase{
 
+	// Loading bar
+	@FindBy(id="wait")
+	WebElement loader;
+	
 	// User Select dropdown
 	@FindBy(id="UserId")
-	private WebElement userDropdown;
+	 WebElement userDropdown;
+	
+	// Year Select dropdown
+	@FindBy(id="ddlYear")
+	WebElement yearDropdown;
+	
+	// Period Select dropdown
+	@FindBy(id="ddlPeriod")
+	WebElement periodDropdown;
 	
 	// Submit button
 	@FindBy(xpath="//button[contains(text(),'Submit')]")
@@ -44,15 +58,53 @@ public class UsCanadaSingleDownload extends TestBase{
 		PageFactory.initElements(driver, this);
 	}
 	
-	public boolean checkCommission(String User) throws InterruptedException
+	public boolean checkCommission(String User) 
 	{
-		Select slc = new Select(userDropdown);
-		slc.selectByVisibleText(User);
-		Thread.sleep(5000);
+		WebDriverWait wait = new WebDriverWait(driver, 30);
+		
+		
+		// Temp until dropdown auto select is resolved
+		String year = "2019";
+		String period = "80";
+		
+		
+		Select uSel = new Select(userDropdown);
+		uSel.selectByVisibleText(User);
+
+		wait.until(ExpectedConditions.attributeContains(loader, "class", "hidden"));
+		Select ySel = new Select(yearDropdown);
+		ySel.selectByVisibleText(year);
+		
+		wait.until(ExpectedConditions.attributeContains(loader, "class", "hidden"));
+		Select pSel = new Select(periodDropdown);
+		pSel.selectByValue(period);
+		
+		wait.until(ExpectedConditions.attributeContains(loader, "class", "hidden"));
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		subbtn.click();
-		Thread.sleep(5000);
+
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		showMorebtn.click();
-		Float total = Float.parseFloat(incentiveTotal.getText().replaceAll(",", ""));
+
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Float Total = Float.parseFloat(incentiveTotal.getText().replaceAll(",", ""));
 
 		// dynamic table handling code STARTS here
 		int CommissionRow = rows.size();
@@ -68,16 +120,17 @@ public class UsCanadaSingleDownload extends TestBase{
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].scrollIntoView();",comm2);
 		String SSName = "checkCommission - "+User;
-		ScreenShot.TakeFullPageScreenShot(driver,SSName);
+		ScreenShot.TakeFullPageScreenShot(driver,SSName,"USCASingle");
 		
+		Float CalculatedTotal = com1+com2;
 		
-		
-		if(Math.floor(total) == Math.floor(com1+com2))
+		if(Math.floor(Total) == Math.floor(CalculatedTotal))
 		{
 			return true;
 		}
 		else
 		{
+			System.out.println("For user : "+User+",In summary total is "+Total+" but in table total is "+CalculatedTotal);
 			return false;
 		}
 		

@@ -9,7 +9,7 @@
 
 	<test name="Bits App Test Cases">
 		<classes>
-			<class name="com.bits.qa.testcases.LoginPageTest"></class>
+			<class name="com.bits.qa.testcases.UsCanadaSingleDownloadTest"></class>
 		</classes>
 	</test>
 </suite>

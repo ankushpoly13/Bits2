@@ -7,8 +7,8 @@ import com.assertthat.selenium_shutterbug.utils.web.ScrollStrategy;
 
 public class ScreenShot {
 	
-	public static void TakeFullPageScreenShot(WebDriver driver, String name)
-	{System.out.println(name);
-		Shutterbug.shootPage(driver, ScrollStrategy.WHOLE_PAGE, 1000).withName(name).save();
+	public static void TakeFullPageScreenShot(WebDriver driver, String name, String foldername)
+	{
+		Shutterbug.shootPage(driver, ScrollStrategy.WHOLE_PAGE, 1000).withName(name).save("./screenshots/"+foldername+"");
 	}
 }

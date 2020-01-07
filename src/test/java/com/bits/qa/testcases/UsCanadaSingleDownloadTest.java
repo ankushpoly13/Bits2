@@ -39,28 +39,28 @@ public class UsCanadaSingleDownloadTest extends TestBase{
 	}
 	
 	
-	@Test(priority=2)
+	//@Test(priority=2)
 	public void verifyCommission2() throws InterruptedException
 	{
 		// Commission verification for 112
 		Assert.assertTrue(USCommData.checkCommission("alexander.liua"));	
 	}
 	
-	@Test(priority=3)
+	//@Test(priority=3)
 	public void verifyCommission3() throws InterruptedException
 	{
 		// Commission verification for 112
 		Assert.assertTrue(USCommData.checkCommission("celine.tracy"));	
 	}
 	
-	@Test(priority=4)
+	//@Test(priority=4)
 	public void verifyCommission4() throws InterruptedException
 	{
 		// Commission verification for 112
 		Assert.assertTrue(USCommData.checkCommission("christina.park"));	
 	}
 	
-	@Test(priority=5)
+	//@Test(priority=5)
 	public void verifyCommission5() throws InterruptedException
 	{
 		// Commission verification for 112
