@@ -53,11 +53,23 @@ public class DHRCommission extends TestBase{
 	@FindBy(xpath="//select[@name=\"TBL_DHRConsultantDetail_length\"]")
 	WebElement pagination;
 	
-	/////////////////////// 
+	/////////////////////// DRAW test case
 	
 	// Payout date
 	@FindBy(id="spnpayoutdate")
 	WebElement payoutDate;
+	
+	// Draw button
+	@FindBy(id="btnDraw")
+	WebElement drawBtn;
+	
+	// Draw popup table
+	@FindBy(id="tbl_DrawDetails")
+	WebElement drawTable;
+	
+	// Rows in draw popup
+	@FindBy(xpath="//*[@id=\"tbl_DrawDetails\"]/tbody/tr")
+	List<WebElement> recordsDraw;
 	
 	
 	DHRCommission()
@@ -65,6 +77,12 @@ public class DHRCommission extends TestBase{
 		PageFactory.initElements(driver, this);
 	}
 	
+	
+//	  	The below test case compares the commission in Summary with the 
+//	  	total of the commissions for that collection date for users
+//  	on SALARIED plan
+    
+    
 	public boolean checkPeriodCommSal(String User) throws ParseException
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 30);
@@ -153,9 +171,11 @@ public class DHRCommission extends TestBase{
 	}
 	
 	
+//		The below test case compares the commission in Summary with the
+//		total of the commission on that payout date in table for users
+//		on DRAW plan
 	
-	
-	public void checkPeriodCommDra(String User) throws ParseException 
+	public boolean checkPeriodCommDra(String User) throws ParseException 
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		
@@ -183,68 +203,55 @@ public class DHRCommission extends TestBase{
 		String[] list = amount.split(" ");
 		Float commAmount= Float.parseFloat(list[list.length-1].replaceAll(",", ""));
 		
-		System.out.println(commAmount);
-		
-		
 		String podate = payoutDate.getText();
 		
-		
-//		String date[] = periodSel.getFirstSelectedOption().getText().split(" ");
-//		String date1 = date[0];
-//		String date2 = date[date.length-1];
-//		
-//		SimpleDateFormat sdfo = new SimpleDateFormat("MM/dd/yyyy");
-//		Date d1 = sdfo.parse(date1);
-//		Date d2 = sdfo.parse(date2);
 
-		 
 		int NoOfRows = rows.size();
-		////////////////
-//		String[] CollectionDates = new  String[NoOfRows] ;
-//		for(int i=0;i<NoOfRows;i++)
-//		{
-//			String xpath = "//*[@id=\"TBL_DHRConsultantDetail\"]/tbody/tr["+(i+1)+"]/td[13]";
-//			CollectionDates[i]=driver.findElement(By.xpath(xpath)).getText().toString();
-//		}
+		Float total = (float) 0;
 		
-//		Date[] dateToCompare = new Date[NoOfRows];
-//		Float total = (float) 0;
-//		for(int i=0;i<NoOfRows;i++)
-//		{
-//			dateToCompare[i]= sdfo.parse(CollectionDates[i]);
-//			if(dateToCompare[i].compareTo(d1) >= 0  && dateToCompare[i].compareTo(d2) <= 0)
-//			{
-//				//dateToCompare[i] is after d1  && dateToCompare[i] is before d2
-//				String xpathForComm= "//*[@id=\"TBL_DHRConsultantDetail\"]/tbody/tr["+(i+1)+"]/td[25]";
-//				String amountInRow = driver.findElement(By.xpath(xpathForComm)).getText();
-//				String[] list1 = amountInRow.split(" ");
-//				Float amt= Float.parseFloat(list1[list1.length-1].replaceAll(",", ""));
-//				total=total+amt;
-//			}
-//		}
-//		
-//		String xpathForLastRow = "//*[@id=\"TBL_DHRConsultantDetail\"]/tbody/tr["+(NoOfRows-1)+"]/td[25]";
-		
+		for(int i=0;i<NoOfRows;i++)
+		{
+			String commPaidOn = driver.findElement(By.xpath("//*[@id=\"TBL_DHRConsultantDetail\"]/tbody/tr["+(i+1)+"]/td[26]")).getText();
+			if(commPaidOn.equals(podate))
+			{
+				String commStr = driver.findElement(By.xpath("//*[@id=\"TBL_DHRConsultantDetail\"]/tbody/tr["+(i+1)+"]/td[25]")).getText();
+				String[] listRec = commStr.split(" ");
+				Float commflt = Float.parseFloat(listRec[listRec.length-1].replaceAll(",", ""));
+				total = total + commflt;
+			}
+		}
 		
 		// Code for Screenshot
-//		JavascriptExecutor js = (JavascriptExecutor) driver;
-//		js.executeScript("arguments[0].scrollIntoView();",driver.findElement(By.xpath(xpathForLastRow)));
-//		String SSName = "checkPeriodComm - "+User;
-//		ScreenShot.TakeFullPageScreenShot(driver,SSName,"DHRCommission");
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].scrollIntoView();",driver.findElement(By.xpath("//*[@id=\"TBL_DHRConsultantDetail\"]/tbody/tr["+NoOfRows+"]/td[26]")));
+		String SSName = "checkPeriodCommDra - " + User;
+		ScreenShot.TakeFullPageScreenShot(driver,SSName,"DHRCommission");
+		
+		drawBtn.click();
+		wait.until(ExpectedConditions.attributeContains(loader, "class", "hidden"));
+		
+		int drawRows = recordsDraw.size();
+		String xpathForLastRow = "//*[@id=\"tbl_DrawDetails\"]/tbody/tr["+drawRows+"]/td[5]";
+		Float amtInDraw = Float.parseFloat(drawTable.findElement(By.xpath(xpathForLastRow)).getText().replaceAll(",", ""));
+		
+		
 
 		
-//		if(total.equals(commAmount))
-//		{
-//			System.out.println("correct");
-//			return true;
-//		}
-//		else
-//		{
-//			System.out.println(commAmount);
-//			System.out.println(total);
-//			System.out.println("incorrect");
-//			return false;
-//		}
+	
+
+
+		
+		if((total.equals(commAmount)) && (total.equals(amtInDraw)))
+		{
+			return true;
+		}
+		else
+		{
+			System.out.println(total);
+			System.out.println(commAmount);
+			System.out.println(amtInDraw);
+			return false;
+		}
 			
 	}
 }

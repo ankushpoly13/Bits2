@@ -2,20 +2,20 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2020-01-07T16:20:19 IST" name="Default suite" finished-at="2020-01-07T16:21:12 IST" duration-ms="53200">
+  <suite started-at="2020-01-07T18:38:22 IST" name="Default suite" finished-at="2020-01-07T18:39:27 IST" duration-ms="64929">
     <groups>
     </groups>
-    <test started-at="2020-01-07T16:20:19 IST" name="Default test" finished-at="2020-01-07T16:21:12 IST" duration-ms="53200">
+    <test started-at="2020-01-07T18:38:22 IST" name="Default test" finished-at="2020-01-07T18:39:27 IST" duration-ms="64929">
       <class name="com.bits.qa.testcases.DHRCommissionTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:com.bits.qa.testcases.DHRCommissionTest@4a7f959b]" started-at="2020-01-07T16:20:19 IST" name="setUp" finished-at="2020-01-07T16:20:45 IST" duration-ms="26631" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.bits.qa.testcases.DHRCommissionTest@4a7f959b]" started-at="2020-01-07T18:38:22 IST" name="setUp" finished-at="2020-01-07T18:38:54 IST" duration-ms="32485" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="checkDHRdra1()[pri:0, instance:com.bits.qa.testcases.DHRCommissionTest@4a7f959b]" started-at="2020-01-07T16:20:45 IST" name="checkDHRdra1" finished-at="2020-01-07T16:21:11 IST" duration-ms="25324" status="PASS">
+        <test-method signature="checkDHRdra1()[pri:0, instance:com.bits.qa.testcases.DHRCommissionTest@4a7f959b]" started-at="2020-01-07T18:38:54 IST" name="checkDHRdra1" finished-at="2020-01-07T18:39:25 IST" duration-ms="31181" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- checkDHRdra1 -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.bits.qa.testcases.DHRCommissionTest@4a7f959b]" started-at="2020-01-07T16:21:11 IST" name="tearDown" finished-at="2020-01-07T16:21:12 IST" duration-ms="1116" status="PASS">
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.bits.qa.testcases.DHRCommissionTest@4a7f959b]" started-at="2020-01-07T18:39:25 IST" name="tearDown" finished-at="2020-01-07T18:39:27 IST" duration-ms="1140" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->

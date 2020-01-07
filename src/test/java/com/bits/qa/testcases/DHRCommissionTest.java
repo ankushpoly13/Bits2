@@ -54,8 +54,7 @@ public class DHRCommissionTest extends TestBase{
 	@Test
 	public void checkDHRdra1() throws ParseException
 	{
-		dhrcomm.checkPeriodCommDra("bernard.royal");
-		//Assert.assertTrue(dhrcomm.checkPeriodCommDra("bernard.royal"));
+		Assert.assertTrue(dhrcomm.checkPeriodCommDra("alex.hall"));
 	}
 	
 	@AfterMethod
