@@ -53,6 +53,10 @@ public class DHRCommission extends TestBase{
 	@FindBy(xpath="//select[@name=\"TBL_DHRConsultantDetail_length\"]")
 	WebElement pagination;
 	
+	// DHR commission table
+	@FindBy(id="TBL_DHRConsultantDetail")
+	WebElement DHRTable;
+	
 	/////////////////////// DRAW test case
 	
 	// Payout date
@@ -81,8 +85,7 @@ public class DHRCommission extends TestBase{
 //	  	The below test case compares the commission in Summary with the 
 //	  	total of the commissions for that collection date for users
 //  	on SALARIED plan
-    
-    
+
 	public boolean checkPeriodCommSal(String User) throws ParseException
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 30);
@@ -121,54 +124,76 @@ public class DHRCommission extends TestBase{
 		 Date d1 = sdfo.parse(date1);
 		 Date d2 = sdfo.parse(date2);
 
-		int NoOfRows = rows.size();
-		
-		String[] CollectionDates = new  String[NoOfRows] ;
-		for(int i=0;i<NoOfRows;i++)
-		{
-			String xpath = "//*[@id=\"TBL_DHRConsultantDetail\"]/tbody/tr["+(i+1)+"]/td[13]";
-			CollectionDates[i]=driver.findElement(By.xpath(xpath)).getText().toString();
-		}
-		
-		Date[] dateToCompare = new Date[NoOfRows];
-		Float total = (float) 0;
-		for(int i=0;i<NoOfRows;i++)
-		{
-			dateToCompare[i]= sdfo.parse(CollectionDates[i]);
-			if(dateToCompare[i].compareTo(d1) >= 0  && dateToCompare[i].compareTo(d2) <= 0)
+		 if(DHRTable.isDisplayed())
+		 {
+			 int NoOfRows = rows.size();
+				
+			String[] CollectionDates = new  String[NoOfRows] ;
+			for(int i=0;i<NoOfRows;i++)
 			{
-				//dateToCompare[i] is after d1  && dateToCompare[i] is before d2
-				String xpathForComm= "//*[@id=\"TBL_DHRConsultantDetail\"]/tbody/tr["+(i+1)+"]/td[25]";
-				String amountInRow = driver.findElement(By.xpath(xpathForComm)).getText();
-				String[] list1 = amountInRow.split(" ");
-				Float amt= Float.parseFloat(list1[list1.length-1].replaceAll(",", ""));
-				total=total+amt;
+				String xpath = "//*[@id=\"TBL_DHRConsultantDetail\"]/tbody/tr["+(i+1)+"]/td[13]";
+				CollectionDates[i]=driver.findElement(By.xpath(xpath)).getText().toString();
 			}
-		}
-		String xpathForLastRow = "//*[@id=\"TBL_DHRConsultantDetail\"]/tbody/tr["+(NoOfRows-1)+"]/td[25]";
-		
-		
-		// Code for Screenshot
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].scrollIntoView();",driver.findElement(By.xpath(xpathForLastRow)));
-		String SSName = "checkPeriodComm - "+User;
-		ScreenShot.TakeFullPageScreenShot(driver,SSName,"DHRCommission");
+			
+			Date[] dateToCompare = new Date[NoOfRows];
+			Float total = (float) 0;
+			for(int i=0;i<NoOfRows;i++)
+			{
+				dateToCompare[i]= sdfo.parse(CollectionDates[i]);
+				if(dateToCompare[i].compareTo(d1) >= 0  && dateToCompare[i].compareTo(d2) <= 0)
+				{
+					//dateToCompare[i] is after d1  && dateToCompare[i] is before d2
+					String xpathForComm= "//*[@id=\"TBL_DHRConsultantDetail\"]/tbody/tr["+(i+1)+"]/td[25]";
+					String amountInRow = driver.findElement(By.xpath(xpathForComm)).getText();
+					String[] list1 = amountInRow.split(" ");
+					Float amt= Float.parseFloat(list1[list1.length-1].replaceAll(",", ""));
+					total=total+amt;
+				}
+			}
+			String xpathForLastRow = "//*[@id=\"TBL_DHRConsultantDetail\"]/tbody/tr["+(NoOfRows-1)+"]/td[25]";
+			
+			
+			// Code for Screenshot
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			js.executeScript("arguments[0].scrollIntoView();",driver.findElement(By.xpath(xpathForLastRow)));
+			String SSName = "checkPeriodComm - "+User;
+			ScreenShot.TakeFullPageScreenShot(driver,SSName,"DHRCommission");
 
+			
+			if(total.equals(commAmount))
+			{
+				System.out.println("correct");
+				return true;
+			}
+			else
+			{
+				System.out.println(commAmount);
+				System.out.println(total);
+				System.out.println("incorrect");
+				return false;
+			}
+		 }
+		 else
+		 {
+			 // Code for Screenshot
+			 JavascriptExecutor js = (JavascriptExecutor) driver;
+			 js.executeScript("arguments[0].scrollIntoView();",PeriodComm);
+			 String SSName = "checkPeriodComm - "+User;
+			 ScreenShot.TakeFullPageScreenShot(driver,SSName,"DHRCommission");
+			 if(commAmount==0)
+			 {
+				 return true;
+			 }
+			 else
+			 {
+				 return false;
+			 }
+		 }
+		 
 		
-		if(total.equals(commAmount))
-		{
-			System.out.println("correct");
-			return true;
-		}
-		else
-		{
-			System.out.println(commAmount);
-			System.out.println(total);
-			System.out.println("incorrect");
-			return false;
-		}
 			
 	}
+	
 	
 	
 //		The below test case compares the commission in Summary with the
@@ -205,53 +230,76 @@ public class DHRCommission extends TestBase{
 		
 		String podate = payoutDate.getText();
 		
-
-		int NoOfRows = rows.size();
-		Float total = (float) 0;
-		
-		for(int i=0;i<NoOfRows;i++)
+		if(DHRTable.isDisplayed())
 		{
-			String commPaidOn = driver.findElement(By.xpath("//*[@id=\"TBL_DHRConsultantDetail\"]/tbody/tr["+(i+1)+"]/td[26]")).getText();
-			if(commPaidOn.equals(podate))
+			int NoOfRows = rows.size();
+			Float total = (float) 0;
+			
+			for(int i=0;i<NoOfRows;i++)
 			{
-				String commStr = driver.findElement(By.xpath("//*[@id=\"TBL_DHRConsultantDetail\"]/tbody/tr["+(i+1)+"]/td[25]")).getText();
-				String[] listRec = commStr.split(" ");
-				Float commflt = Float.parseFloat(listRec[listRec.length-1].replaceAll(",", ""));
-				total = total + commflt;
+				String commPaidOn = driver.findElement(By.xpath("//*[@id=\"TBL_DHRConsultantDetail\"]/tbody/tr["+(i+1)+"]/td[26]")).getText();
+				if(commPaidOn.equals(podate))
+				{
+					String commStr = driver.findElement(By.xpath("//*[@id=\"TBL_DHRConsultantDetail\"]/tbody/tr["+(i+1)+"]/td[25]")).getText();
+					String[] listRec = commStr.split(" ");
+					Float commflt = Float.parseFloat(listRec[listRec.length-1].replaceAll(",", ""));
+					total = total + commflt;
+				}
 			}
-		}
-		
-		// Code for Screenshot
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].scrollIntoView();",driver.findElement(By.xpath("//*[@id=\"TBL_DHRConsultantDetail\"]/tbody/tr["+NoOfRows+"]/td[26]")));
-		String SSName = "checkPeriodCommDra - " + User;
-		ScreenShot.TakeFullPageScreenShot(driver,SSName,"DHRCommission");
-		
-		drawBtn.click();
-		wait.until(ExpectedConditions.attributeContains(loader, "class", "hidden"));
-		
-		int drawRows = recordsDraw.size();
-		String xpathForLastRow = "//*[@id=\"tbl_DrawDetails\"]/tbody/tr["+drawRows+"]/td[5]";
-		Float amtInDraw = Float.parseFloat(drawTable.findElement(By.xpath(xpathForLastRow)).getText().replaceAll(",", ""));
-		
-		
+			
+			// Code for Screenshot
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			js.executeScript("arguments[0].scrollIntoView();",driver.findElement(By.xpath("//*[@id=\"TBL_DHRConsultantDetail\"]/tbody/tr["+NoOfRows+"]/td[26]")));
+			String SSName = "checkPeriodCommDra - " + User;
+			ScreenShot.TakeFullPageScreenShot(driver,SSName,"DHRCommission");
+			
+			drawBtn.click();
+			wait.until(ExpectedConditions.attributeContains(loader, "class", "hidden"));
+			
+			int drawRows = recordsDraw.size();
+			String xpathForLastRow = "//*[@id=\"tbl_DrawDetails\"]/tbody/tr["+drawRows+"]/td[5]";
+			Float amtInDraw = Float.parseFloat(drawTable.findElement(By.xpath(xpathForLastRow)).getText().replaceAll(",", ""));
+			
+			
 
-		
-	
-
-
-		
-		if((total.equals(commAmount)) && (total.equals(amtInDraw)))
-		{
-			return true;
+			if((total.equals(commAmount)) && (total.equals(amtInDraw)))
+			{
+				return true;
+			}
+			else
+			{
+				System.out.println(total);
+				System.out.println(commAmount);
+				System.out.println(amtInDraw);
+				return false;
+			}
+			
 		}
 		else
 		{
-			System.out.println(total);
-			System.out.println(commAmount);
-			System.out.println(amtInDraw);
-			return false;
+
+			// Code for Screenshot
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			js.executeScript("arguments[0].scrollIntoView();",PeriodComm);
+			String SSName = "checkPeriodCommDra - " + User;
+			ScreenShot.TakeFullPageScreenShot(driver,SSName,"DHRCommission");
+			
+			if(commAmount==0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 			
 	}
+
+
+
+
+
+
+
 }

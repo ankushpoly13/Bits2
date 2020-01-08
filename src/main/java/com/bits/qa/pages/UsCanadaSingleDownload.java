@@ -52,6 +52,17 @@ public class UsCanadaSingleDownload extends TestBase{
 	@FindBy(xpath="//*[@id=\"ConsulatantTable\"]/tbody")
 	WebElement staticPath;
 
+	// table
+	@FindBy(id="ConsulatantTable")
+	WebElement CommissionTable;
+	
+	// Freeze button
+	@FindBy(id="btnFreeze")
+	WebElement freezeBtn;
+	
+	// Freeze slider
+	@FindBy(xpath="//label[contains(text(),'Live')]")
+	WebElement freezeSld;
 	
 	public UsCanadaSingleDownload()
 	{
@@ -61,7 +72,6 @@ public class UsCanadaSingleDownload extends TestBase{
 	public boolean checkCommission(String User) 
 	{
 		WebDriverWait wait = new WebDriverWait(driver, 30);
-		
 		
 		// Temp until dropdown auto select is resolved
 		String year = "2019";
@@ -80,12 +90,28 @@ public class UsCanadaSingleDownload extends TestBase{
 		pSel.selectByValue(period);
 		
 		wait.until(ExpectedConditions.attributeContains(loader, "class", "hidden"));
+		
+		
+		
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		if(!freezeBtn.isDisplayed())
+		{
+			freezeSld.click();
+		}
+		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
 		subbtn.click();
 
 		try {
@@ -106,33 +132,55 @@ public class UsCanadaSingleDownload extends TestBase{
 		
 		Float Total = Float.parseFloat(incentiveTotal.getText().replaceAll(",", ""));
 
-		// dynamic table handling code STARTS here
-		int CommissionRow = rows.size();
-		WebElement comm1 = staticPath.findElement(By.xpath("//tr["+CommissionRow+"]/td[15]"));
-		WebElement comm2 = staticPath.findElement(By.xpath("//tr["+CommissionRow+"]/td[20]"));
-		// dynamic table handling code ENDS here
 		
-		Float com1 = Float.parseFloat(comm1.getText().replaceAll(",", ""));
-		Float com2 = Float.parseFloat(comm2.getText().replaceAll(",", ""));
-		
-		
-		// Code for Screenshot
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].scrollIntoView();",comm2);
-		String SSName = "checkCommission - "+User;
-		ScreenShot.TakeFullPageScreenShot(driver,SSName,"USCASingle");
-		
-		Float CalculatedTotal = com1+com2;
-		
-		if(Math.floor(Total) == Math.floor(CalculatedTotal))
+		// check if table exists or not
+		if(CommissionTable.isDisplayed())
 		{
-			return true;
+			// dynamic table handling code STARTS here
+			int CommissionRow = rows.size();
+			WebElement comm1 = staticPath.findElement(By.xpath("//tr["+CommissionRow+"]/td[15]"));
+			WebElement comm2 = staticPath.findElement(By.xpath("//tr["+CommissionRow+"]/td[20]"));
+			// dynamic table handling code ENDS here
+			
+			Float com1 = Float.parseFloat(comm1.getText().replaceAll(",", ""));
+			Float com2 = Float.parseFloat(comm2.getText().replaceAll(",", ""));
+			
+			
+			// Code for Screenshot
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			js.executeScript("arguments[0].scrollIntoView();",comm2);
+			String SSName = "checkCommission - "+User;
+			ScreenShot.TakeFullPageScreenShot(driver,SSName,"USCASingle");
+			
+			Float CalculatedTotal = com1+com2;
+			
+			if(Math.floor(Total) == Math.floor(CalculatedTotal))
+			{
+				return true;
+			}
+			else
+			{
+				System.out.println("For user : "+User+",In summary total is "+Total+" but in table total is "+CalculatedTotal);
+				return false;
+			}
 		}
 		else
 		{
-			System.out.println("For user : "+User+",In summary total is "+Total+" but in table total is "+CalculatedTotal);
-			return false;
+			// Code for Screenshot
+			JavascriptExecutor js = (JavascriptExecutor) driver;
+			js.executeScript("arguments[0].scrollIntoView();",incentiveTotal);
+			String SSName = "checkCommission - "+User;
+			ScreenShot.TakeFullPageScreenShot(driver,SSName,"USCASingle");
+			if(Total==0.0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
+		
 		
 		
 	}
