@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.bits.qa.testcases.SuperAdminDashboardTest">
+      <class name="com.bits.qa.testcases.DHRCommissionTest">
         <methods>
-          <include name="newHiresIndia"/>
-          <include name="TearDown"/>
-          <include name="SetUp"/>
+          <include name="tearDown"/>
+          <include name="checkDHRdra1"/>
+          <include name="setUp"/>
         </methods>
-      </class> <!-- com.bits.qa.testcases.SuperAdminDashboardTest -->
+      </class> <!-- com.bits.qa.testcases.DHRCommissionTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

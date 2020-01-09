@@ -33,30 +33,16 @@ public class DHRCommissionTest extends TestBase{
 		
 	}
 	
-	// Test for salaried users
-	//@Test
-	public void checkDHRsal1() throws ParseException
-	{
-		Assert.assertTrue(dhrcomm.checkPeriodCommSal("anuj.hpatel"));
-	}
-	
-	//@Test
-	public void checkDHRsal2() throws ParseException
-	{
-		Assert.assertTrue(dhrcomm.checkPeriodCommSal("kyle.martin"));
-	}
-	
-	//@Test
-	public void checkDHRsal3() throws ParseException
-	{
-		Assert.assertTrue(dhrcomm.checkPeriodCommSal("carly.collums"));
-	}
-	
-	// Test for draw users
 	@Test
-	public void checkDHRdra1() throws ParseException
+	public void checkDHR1() throws ParseException
 	{
-		Assert.assertTrue(dhrcomm.checkPeriodCommDra("alex.hall"));
+		Assert.assertTrue(dhrcomm.checkPeriodCommDHR("anuj.hpatel"));
+	}
+	
+	@Test
+	public void checkDHR2() throws ParseException
+	{
+		Assert.assertTrue(dhrcomm.checkPeriodCommDHR("alex.hall"));
 	}
 	
 	@AfterMethod
