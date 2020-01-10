@@ -28,7 +28,12 @@ public class SuperAdminDashboardTest extends TestBase{
 		initialization();
 		loginpage= new LoginPage();
 		homepage = loginpage.login(prop.getProperty("email"), prop.getProperty("password"));
-		superdashboard = homepage.OpenSD();
+		try {
+			superdashboard = homepage.OpenSD();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
 	}
 	

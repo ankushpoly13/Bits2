@@ -1,5 +1,6 @@
 package com.bits.qa.testcases;
 
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -34,18 +35,19 @@ public class UsCanadaSingleDownloadTest extends TestBase{
 	@Test(priority=1)
 	public void verifyCommission1() 
 	{
-		String User="abby.hayden";
+		String User="adeline.wilkop";
 		
 		USCommData.submitUser(User);
 		
-		// For users with single plan
-		if(USCommData.checkNoOfPlans()<2)
+		/////////////////
+		// For users with 1 plan
+		if(USCommData.checkNoOfPlans()==1)
 		{
-			String planName = USCommData.planName(1);
-			
 			
 			Float Total = USCommData.getCommFromSummary();
 			Float CommissionInTable;
+			String planName = USCommData.planName(1);
+			USCommData.showMore();
 			if(USCommData.checkTableExistance())
 			{
 				if(planName.equals("111"))
@@ -66,10 +68,38 @@ public class UsCanadaSingleDownloadTest extends TestBase{
 			{
 				Assert.assertTrue(USCommData.noTable(User, Total));
 			}
-			
-		}
 		
-
+		}
+		// For users with 2 plans
+		else
+		{
+			float Total = USCommData.getCommFromSummary();
+			float CommissionInTable = (float) 0;
+			USCommData.showMore();	
+			for(int k=1;k<=2;k++)
+			{
+				String planName = USCommData.planName(k);
+				if(USCommData.checkTableExistance())
+				{
+					if(planName.equals("111"))
+					{
+						CommissionInTable = CommissionInTable + USCommData.commissionFor111(User);
+					}
+					else if(planName.equals("101"))
+					{
+						CommissionInTable = CommissionInTable + USCommData.commissionFor101(User);
+					}
+					else
+					{
+						CommissionInTable = CommissionInTable + USCommData.commissionForDefault(User);
+					}	
+					USCommData.switchTab();
+				}
+				
+			}
+			Assert.assertEquals(Math.floor(Total), Math.floor(CommissionInTable));
+		}
+		////////////////////////
 		
 	}
 	

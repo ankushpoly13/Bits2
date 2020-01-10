@@ -2,12 +2,18 @@ package com.bits.qa.pages;
 
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.bits.qa.base.TestBase;
+import com.bits.qa.util.TestUtil;
 
 public class HomePage extends TestBase{
 	
@@ -22,34 +28,38 @@ public class HomePage extends TestBase{
 		PageFactory.initElements(driver, this);
 	}
 	
-	public SuperAdminDashboard OpenSD() 
+	public SuperAdminDashboard OpenSD() throws InterruptedException
 	{
-		driver.navigate().to("https://apps.collabera.com/BITS_BETA/Dashboard/SuperAdmin");
-		try {
-			Runtime.getRuntime().exec("D:\\AutoITScripts\\autoit.exe");
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		try 
+		{
+			driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+			driver.navigate().to("https://apps.collabera.com/BITS_BETA/Dashboard/SuperAdmin");
+		} 
+		catch (Exception e)
+		{
+			System.out.println("Exception handled for timeout");
+			driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_lOAD_TIMEOUT, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT, TimeUnit.SECONDS);
 		}
 		return new SuperAdminDashboard();
 	}
 	
-	public CommonDashboard OpenCD() 
+	public CommonDashboard OpenCD() throws InterruptedException
 	{
-		driver.navigate().to("https://apps.collabera.com/BITS_BETA/Dashboard/CommonDashboard");
-		try {
-			Runtime.getRuntime().exec("D:\\AutoITScripts\\autoit.exe");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		try 
+		{
+			driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+			driver.navigate().to("https://apps.collabera.com/BITS_BETA/Dashboard/CommonDashboard");	
+		} 
+		catch (Exception e)
+		{
+			System.out.println("Exception handled for timeout");
+			driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_lOAD_TIMEOUT, TimeUnit.SECONDS);
+			driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT, TimeUnit.SECONDS);
 		}
-		return new CommonDashboard();
+		return new CommonDashboard(); 
 	}
 	
 	public UsCanadaSingleDownload navigateToUSComm()

@@ -44,6 +44,10 @@ public class UsCanadaSingleDownload extends TestBase{
 	@FindBy(xpath="//button[contains(text(),'Show More')]")
 	WebElement showMorebtn;
 	
+	// Show more button for multiple
+	@FindBy(id="TableShowMore")
+	WebElement showMorebtnMul;
+	
 	// Table element
 	@FindBy(xpath="//*[@id=\"ConsulatantTable\"]/tbody/tr")
 	List<WebElement> rows;
@@ -102,13 +106,27 @@ public class UsCanadaSingleDownload extends TestBase{
 		
 		sleep(2000);
 		subbtn.click();
-		sleep(1000);
+		wait.until(ExpectedConditions.attributeContains(loader, "class", "hidden"));
+		
+	}
+	
+	public void showMore()
+	{
+		sleep(2000);
 		showMorebtn.click();
+		sleep(2000);
+	}
+	
+	public void showMoreMul()
+	{
+		sleep(2000);
+		showMorebtnMul.click();
+		sleep(2000);
 	}
 
 	public float getCommFromSummary()
 	{
-		sleep(1000);
+		sleep(3000);
 		return Float.parseFloat(incentiveTotal.getText().replaceAll(",", ""));
 	}
 
@@ -144,14 +162,26 @@ public class UsCanadaSingleDownload extends TestBase{
 	public float commissionForDefault(String User)
 	{
 		// dynamic table handling code STARTS here
+		System.out.println(rows.size());
 		int CommissionRow = rows.size();
-		WebElement comm1 = staticPath.findElement(By.xpath("//tr["+CommissionRow+"]/td[15]"));
-		WebElement comm2 = staticPath.findElement(By.xpath("//tr["+CommissionRow+"]/td[20]"));
+		WebElement comm1;
+		WebElement comm2;
+		if(plans.size()>1)
+		{
+			comm1 = driver.findElement(By.xpath("//*[@id=\"ConsulatantTable\"]/tfoot/tr[1]/td[15]"));
+			comm2 = driver.findElement(By.xpath("//*[@id=\"ConsulatantTable\"]/tfoot/tr[1]/td[20]"));
+		}
+		else
+		{
+			comm1 = staticPath.findElement(By.xpath("//tr["+CommissionRow+"]/td[15]"));
+			comm2 = staticPath.findElement(By.xpath("//tr["+CommissionRow+"]/td[20]"));			
+		}
 		// dynamic table handling code ENDS here
 		
 		Float com1 = Float.parseFloat(comm1.getText().replaceAll(",", ""));
 		Float com2 = Float.parseFloat(comm2.getText().replaceAll(",", ""));
-
+		System.out.println(com1);
+		System.out.println(com2);
 		jsScreenshot(User,comm2);
 		return com1+com2;
 	}
@@ -180,6 +210,12 @@ public class UsCanadaSingleDownload extends TestBase{
 		ScreenShot.TakeFullPageScreenShot(driver,SSName,"USCASingle");
 	}
 	
+	public void switchTab()
+	{
+		driver.findElement(By.xpath("//*[@id=\"AddPlanTab\"]/li[2]/a")).click();
+		sleep(1000);
+	}
+	
 	public static void sleep(int ms)
 	{
 		try {
@@ -189,6 +225,8 @@ public class UsCanadaSingleDownload extends TestBase{
 			e.printStackTrace();
 		}
 	}
+	
+	
 	
 	public int checkNoOfPlans()
 	{

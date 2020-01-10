@@ -17,13 +17,13 @@ public class DataBaseConnection extends TestBase
 	public void test() throws ClassNotFoundException, SQLException {
 	
 	
-		String UserName="Collabera_Spades";
+		String UserName="";
 	
-		String Password="321@Sq@be5";
+		String Password="";
 	
 		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 	
-		String DB_URL ="jdbc:sqlserver://gcisql01;databaseName=Workflow_Prod";
+		String DB_URL ="";
 	
 		Connection con = DriverManager.getConnection(DB_URL, UserName, Password);
 		

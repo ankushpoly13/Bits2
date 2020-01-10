@@ -19,7 +19,7 @@ public class SuperAdminDashboard extends TestBase{
 	
 	// Period Dropdown
 	@FindBy(id="StartsPeriod")
-	WebElement newhires;
+	WebElement newHires;
 	
 	SuperAdminDashboard()
 	{
@@ -32,15 +32,24 @@ public class SuperAdminDashboard extends TestBase{
 	
 	public void checkNewHiresIndia()
 	{
-		
+		sleep(7000);
 		Select yearSel = new Select(csyear);
 		yearSel.selectByValue("2019");
-		System.out.println("test");
-		
+		sleep(7000);
 		Select periodSel = new Select(csperiod);
 		periodSel.selectByValue("27");
-		
-		System.out.println(newhires.getText());
+		sleep(5000);
+		System.out.println(newHires.getText());
+	}
+	
+	public static void sleep(int i)
+	{
+		try {
+			Thread.sleep(i);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 

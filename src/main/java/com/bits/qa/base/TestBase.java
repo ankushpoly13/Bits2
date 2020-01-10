@@ -3,6 +3,7 @@ package com.bits.qa.base;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -11,6 +12,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import com.bits.qa.util.TestUtil;
 
@@ -39,6 +41,8 @@ public class TestBase {
 	public static void initialization() 
 	{
 		String browser = prop.getProperty("browser");
+		
+		
 		if (browser.equals("chrome"))
 		{
 			System.setProperty("webdriver.chrome.driver","D:\\Automation\\chromedriver.exe");
@@ -65,6 +69,7 @@ public class TestBase {
 			
 		}
 		
+		
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
 		driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_lOAD_TIMEOUT, TimeUnit.SECONDS);
@@ -72,7 +77,5 @@ public class TestBase {
 		driver.get(prop.getProperty("url"));
 }
 	
-
-
-
+	   
 }

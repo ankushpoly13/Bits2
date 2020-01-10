@@ -28,9 +28,12 @@ public class CommonDashboardTest extends TestBase{
 		initialization();
 		login = new LoginPage();
 		homepage = login.login(prop.getProperty("email"), prop.getProperty("password"));
-		commondashboard = homepage.OpenCD();
-		
-		
+		try {
+			commondashboard = homepage.OpenCD();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
